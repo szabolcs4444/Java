@@ -1,10 +1,6 @@
-Azonosito;Cim;Rendezo;Elsobemutatas;Jegyar
+Identifier;Title;Director;Performance date;Ticket price
 1;Az öldöklés istene;Ádám Ottó;2020.08.12;990
-2;Cabaret;Cserna Antal;2020.12.12;1500
+2;Cabaret;Cserna Anta;2020.12.12;1500
 3;Te furcsa katona;Dávid Zsuzsa;2002.09.01;2000
 4;Macskadémon;Gáspár Ildikó;2000.04.30;3000
 5;Csipkerózsika Jégmese;Gazdag Gyula;2021.07.07;5000
-55;asd;asd;2000.01.01;14412
--250;asd;asd;1989.01.01;1400
-1234567;asd;asd;1989.10.10;12345
-12345678;asd;asd;1989.01.10;124

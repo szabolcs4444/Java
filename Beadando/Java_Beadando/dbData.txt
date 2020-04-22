@@ -1,0 +1,13 @@
+insert into drama values(1,"Carnage","Roman Polański","2011.08.12",990);
+insert into drama values(2,"Cabaret","Bob Fosse","1972.12.12",1500);
+insert into drama values(3,"Te furcsa katona","Dávid Zsuzsa","2002.09.01",2000);
+insert into drama values(4,"Macskadémon","Gáspár Ildikó","2000.04.30",3000);
+insert into drama values(5,"Csipkerózsika Jégmese","Gazdag Gyula","2021.07.07",5000);
+
+
+CREATE TABLE drama(
+identifier integer primary key,
+title text,
+director text,
+performanceDate date,
+ticketPrice integer);
