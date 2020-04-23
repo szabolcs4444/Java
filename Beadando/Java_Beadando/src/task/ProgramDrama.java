@@ -25,13 +25,13 @@ public class ProgramDrama extends JFrame {
 
 	private JPanel contentPane;
 
-	private DramaTM drama;
+	private DramaTableDesign dramaTableModel;
 	private File fileLoad;
 	private String comboBoxString;
 	private String comboBoxStringSecond;
 	static JTextField textLoad;
 	private JTextField textPrint;
-	private int dbOperator;
+	private int databaseOperator;
 	private String dbConnect;
 	private DBMethods dbMethods = new DBMethods();
 	private XmlWriter xmlWriter = new XmlWriter();
@@ -64,8 +64,8 @@ public class ProgramDrama extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		JButton btnLoad = new JButton("Load data");
-		btnLoad.addActionListener(new ActionListener() {
+		JButton buttonLoad = new JButton("Load data");
+		buttonLoad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				String csvEmpty = "";
@@ -74,7 +74,7 @@ public class ProgramDrama extends JFrame {
 				if (csvEmpty.equals(comboBoxString)) {
 					JOptionPane.showMessageDialog(null, "Choose one file format! ", " Program message", 0);
 				} else if (csvFile.equals(comboBoxString)) {
-					dbOperator = 0;
+					databaseOperator = 0;
 					FileDialog fileDialog = new FileDialog(new Frame(), " ", FileDialog.LOAD);
 					fileDialog.setFile("*.csv");
 					fileDialog.setVisible(true);
@@ -82,42 +82,42 @@ public class ProgramDrama extends JFrame {
 						fileLoad = new File(fileDialog.getDirectory(), fileDialog.getFile());
 						String bName = fileDialog.getFile();
 						textLoad.setText(bName);
-						FileManager.csvReader(fileLoad, drama);
+						FileManager.readCsv(fileLoad, dramaTableModel);
 					}
 				} else if (csvSqlite.equals(comboBoxString)) {
-					dbOperator = 1;
+					databaseOperator = 1;
 					dbMethods.reg();
 					dbMethods.connect();
 					dbConnect = textLoad.getText();
-					drama = dbMethods.readAllData(dbConnect);
+					dramaTableModel = dbMethods.readAllData(dbConnect);
 					dbMethods.disconnect();
 				}
 
 			}
 		});
-		btnLoad.setBackground(new Color(0, 128, 0));
-		btnLoad.setFont(new Font("Arial Black", Font.BOLD, 12));
-		btnLoad.setBounds(603, 33, 175, 23);
-		contentPane.add(btnLoad);
+		buttonLoad.setBackground(new Color(0, 128, 0));
+		buttonLoad.setFont(new Font("Arial Black", Font.BOLD, 12));
+		buttonLoad.setBounds(603, 33, 175, 23);
+		contentPane.add(buttonLoad);
 
-		JButton btnListData = new JButton("List data");
-		btnListData.setBackground(new Color(0, 128, 0));
-		btnListData.addActionListener(new ActionListener() {
+		JButton buttonListData = new JButton("List data");
+		buttonListData.setBackground(new Color(0, 128, 0));
+		buttonListData.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (dbOperator == 0) {
-					drama = FileManager.csvReader(fileLoad, drama);
-				} else if (dbOperator == 1) {
+				if (databaseOperator == 0) {
+					dramaTableModel = FileManager.readCsv(fileLoad, dramaTableModel);
+				} else if (databaseOperator == 1) {
 					dbMethods.connect();
-					drama = dbMethods.readAllData(dbConnect);
+					dramaTableModel = dbMethods.readAllData(dbConnect);
 					dbMethods.disconnect();
 				}
-				DramaList dl = new DramaList(ProgramDrama.this, drama);
+				DramaList dl = new DramaList(ProgramDrama.this, dramaTableModel);
 				dl.setVisible(true);
 			}
 		});
-		btnListData.setFont(new Font("Arial Black", Font.BOLD, 12));
-		btnListData.setBounds(10, 33, 155, 23);
-		contentPane.add(btnListData);
+		buttonListData.setFont(new Font("Arial Black", Font.BOLD, 12));
+		buttonListData.setBounds(10, 33, 155, 23);
+		contentPane.add(buttonListData);
 
 		String element[] = { "", ".csv file", "sqlite db" };
 		JComboBox comboBox = new JComboBox();
@@ -139,77 +139,77 @@ public class ProgramDrama extends JFrame {
 		contentPane.add(textLoad);
 		textLoad.setColumns(10);
 
-		JLabel lblFormatSelectionLoad = new JLabel("Format selection:");
-		lblFormatSelectionLoad.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblFormatSelectionLoad.setBounds(186, 9, 147, 14);
-		contentPane.add(lblFormatSelectionLoad);
+		JLabel labelFormatSelectionLoad = new JLabel("Format selection:");
+		labelFormatSelectionLoad.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		labelFormatSelectionLoad.setBounds(186, 9, 147, 14);
+		contentPane.add(labelFormatSelectionLoad);
 
-		JLabel lblNewLabel_1 = new JLabel("The name of the file to load:");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_1.setBounds(376, 8, 187, 14);
-		contentPane.add(lblNewLabel_1);
+		JLabel labelNewLabel_1 = new JLabel("The name of the file to load:");
+		labelNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		labelNewLabel_1.setBounds(376, 8, 187, 14);
+		contentPane.add(labelNewLabel_1);
 
-		JButton btnNewData = new JButton("Add new data");
-		btnNewData.addActionListener(new ActionListener() {
+		JButton buttonNewData = new JButton("Add new data");
+		buttonNewData.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (dbOperator == 0) {
-					NewDrama nd = new NewDrama(dbOperator);
+				if (databaseOperator == 0) {
+					NewDrama nd = new NewDrama(databaseOperator);
 					nd.setVisible(true);
-				} else if (dbOperator == 1) {
-					NewDrama nd = new NewDrama(dbOperator);
+				} else if (databaseOperator == 1) {
+					NewDrama nd = new NewDrama(databaseOperator);
 					nd.setVisible(true);
 				}
 			}
 		});
-		btnNewData.setBackground(new Color(0, 128, 0));
-		btnNewData.setFont(new Font("Arial Black", Font.BOLD, 12));
-		btnNewData.setBounds(10, 134, 175, 23);
-		contentPane.add(btnNewData);
+		buttonNewData.setBackground(new Color(0, 128, 0));
+		buttonNewData.setFont(new Font("Arial Black", Font.BOLD, 12));
+		buttonNewData.setBounds(10, 134, 175, 23);
+		contentPane.add(buttonNewData);
 
-		JButton btnModifyData = new JButton("Modify data");
-		btnModifyData.addActionListener(new ActionListener() {
+		JButton buttonModifyData = new JButton("Modify data");
+		buttonModifyData.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (dbOperator == 0) {
-					drama = FileManager.csvReader(fileLoad, drama);
+				if (databaseOperator == 0) {
+					dramaTableModel = FileManager.readCsv(fileLoad, dramaTableModel);
 
-				} else if (dbOperator == 1) {
+				} else if (databaseOperator == 1) {
 					dbMethods.connect();
-					drama = dbMethods.readAllData(dbConnect);
+					dramaTableModel = dbMethods.readAllData(dbConnect);
 					dbMethods.disconnect();
 				}
 
-				DramaMod dramaMod = new DramaMod(ProgramDrama.this, drama, dbOperator, fileLoad);
+				DramaModify dramaMod = new DramaModify(ProgramDrama.this, dramaTableModel, databaseOperator, fileLoad);
 				dramaMod.setVisible(true);
 			}
 		});
-		btnModifyData.setBackground(new Color(0, 128, 0));
-		btnModifyData.setFont(new Font("Arial Black", Font.BOLD, 12));
-		btnModifyData.setBounds(10, 197, 175, 23);
-		contentPane.add(btnModifyData);
+		buttonModifyData.setBackground(new Color(0, 128, 0));
+		buttonModifyData.setFont(new Font("Arial Black", Font.BOLD, 12));
+		buttonModifyData.setBounds(10, 197, 175, 23);
+		contentPane.add(buttonModifyData);
 
-		JButton btnDeleteData = new JButton("Delete data");
-		btnDeleteData.addActionListener(new ActionListener() {
+		JButton buttonDeleteData = new JButton("Delete data");
+		buttonDeleteData.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (dbOperator == 0) {
-					drama = FileManager.csvReader(fileLoad, drama);
+				if (databaseOperator == 0) {
+					dramaTableModel = FileManager.readCsv(fileLoad, dramaTableModel);
 
-				} else if (dbOperator == 1) {
+				} else if (databaseOperator == 1) {
 					dbMethods.connect();
-					drama = dbMethods.readAllData(dbConnect);
+					dramaTableModel = dbMethods.readAllData(dbConnect);
 					dbMethods.disconnect();
 				}
 
-				DramaDel dd = new DramaDel(ProgramDrama.this, drama, dbOperator, fileLoad);
+				DramaDelete dd = new DramaDelete(ProgramDrama.this, dramaTableModel, databaseOperator, fileLoad);
 				dd.setVisible(true);
 			}
 		});
-		btnDeleteData.setBackground(new Color(0, 128, 0));
-		btnDeleteData.setFont(new Font("Arial Black", Font.BOLD, 12));
-		btnDeleteData.setBounds(10, 267, 175, 23);
-		contentPane.add(btnDeleteData);
+		buttonDeleteData.setBackground(new Color(0, 128, 0));
+		buttonDeleteData.setFont(new Font("Arial Black", Font.BOLD, 12));
+		buttonDeleteData.setBounds(10, 267, 175, 23);
+		contentPane.add(buttonDeleteData);
 
-		JButton btnSaveData = new JButton("Save data");
-		btnSaveData.addActionListener(new ActionListener() {
+		JButton buttonSaveData = new JButton("Save data");
+		buttonSaveData.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String stringEmpty = "";
 				String csvFile = ".csv file";
@@ -219,45 +219,45 @@ public class ProgramDrama extends JFrame {
 				String csvPdf = ".pdf file";
 				if (stringEmpty.equals(comboBoxStringSecond)) {
 					JOptionPane.showMessageDialog(null, "Choose one file format! ", " Program message", 0);
-				} else if (drama.getRowCount() == 0) {
+				} else if (dramaTableModel.getRowCount() == 0) {
 					JOptionPane.showMessageDialog(null, "No data to print! ", " Program message", 0);
 				} else if (csvFile.equals(comboBoxStringSecond)) {
 					if (textPrint.getText().length() == 0) {
 						JOptionPane.showMessageDialog(null, "No filename specified! ", " Program message", 0);
 					} else {
-						FileManager.csvWriter(textPrint.getText().toString(), drama);
+						FileManager.writeCsv(textPrint.getText().toString(), dramaTableModel);
 					}
 				} else if (csvSqlite.equals(comboBoxStringSecond)) {
 					if (textPrint.getText().length() == 0) {
 						JOptionPane.showMessageDialog(null, "No table name specified! ", " Program message", 0);
 					} else {
-						dbMethods.dbWriter(textPrint.getText().toString(), drama);
+						dbMethods.write(textPrint.getText().toString(), dramaTableModel);
 					}
 				} else if (csvXml.equals(comboBoxStringSecond)) {
 					if (textPrint.getText().length() == 0) {
 						JOptionPane.showMessageDialog(null, "No filename specified! ", " Program message", 0);
 					} else {
-						XmlWriter.xmlWriter(textPrint.getText().toString(), drama);
+						XmlWriter.xmlWriter(textPrint.getText().toString(), dramaTableModel);
 					}
 				} else if (csvJson.equals(comboBoxStringSecond)) {
 					if (textPrint.getText().length() == 0) {
 						JOptionPane.showMessageDialog(null, "No filename  specified! ", " Program message", 0);
 					} else {
-						JsonWriter.JsoncsvWriter(textPrint.getText().toString(), drama);
+						JsonWriter.write(textPrint.getText().toString(), dramaTableModel);
 					}
 				} else if (csvPdf.equals(comboBoxStringSecond)) {
 					if (textPrint.getText().length() == 0) {
 						JOptionPane.showMessageDialog(null, "No filename specified! ", " Program message", 0);
 					} else {
-						PdfWrite.pdfWrite(textPrint.getText().toString(), drama);
+						PdfWrite.write(textPrint.getText().toString(), dramaTableModel);
 					}
 				}
 			}
 		});
-		btnSaveData.setBackground(new Color(0, 128, 0));
-		btnSaveData.setFont(new Font("Arial Black", Font.BOLD, 12));
-		btnSaveData.setBounds(609, 361, 169, 23);
-		contentPane.add(btnSaveData);
+		buttonSaveData.setBackground(new Color(0, 128, 0));
+		buttonSaveData.setFont(new Font("Arial Black", Font.BOLD, 12));
+		buttonSaveData.setBounds(609, 361, 169, 23);
+		contentPane.add(buttonSaveData);
 		String element2[] = { "", ".csv file", ".xml file", ".json file", "sqlite db", ".pdf file" };
 		JComboBox comboBox_1 = new JComboBox();
 		for (String s : element2)
@@ -278,31 +278,31 @@ public class ProgramDrama extends JFrame {
 		comboBox_1.setBounds(186, 362, 135, 22);
 		contentPane.add(comboBox_1);
 
-		JLabel lblFormatSelectionSave = new JLabel("Format selection:");
-		lblFormatSelectionSave.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblFormatSelectionSave.setBounds(186, 337, 147, 14);
-		contentPane.add(lblFormatSelectionSave);
+		JLabel labelFormatSelectionSave = new JLabel("Format selection:");
+		labelFormatSelectionSave.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		labelFormatSelectionSave.setBounds(186, 337, 147, 14);
+		contentPane.add(labelFormatSelectionSave);
 
 		textPrint = new JTextField();
 		textPrint.setBounds(322, 363, 277, 20);
 		contentPane.add(textPrint);
 		textPrint.setColumns(10);
 
-		JLabel lblNewLabel_1_1 = new JLabel("the name of the file/table you want to save:");
-		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_1_1.setBounds(322, 337, 271, 14);
-		contentPane.add(lblNewLabel_1_1);
+		JLabel labelNewLabel_1_1 = new JLabel("the name of the file/table you want to save:");
+		labelNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		labelNewLabel_1_1.setBounds(322, 337, 271, 14);
+		contentPane.add(labelNewLabel_1_1);
 
-		JButton btnExit = new JButton("Exit");
-		btnExit.setBackground(new Color(255, 0, 0));
-		btnExit.addActionListener(new ActionListener() {
+		JButton buttonExit = new JButton("Exit");
+		buttonExit.setBackground(new Color(255, 0, 0));
+		buttonExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		});
-		btnExit.setFont(new Font("Arial Black", Font.BOLD, 12));
-		btnExit.setBounds(609, 441, 169, 23);
-		contentPane.add(btnExit);
+		buttonExit.setFont(new Font("Arial Black", Font.BOLD, 12));
+		buttonExit.setBounds(609, 441, 169, 23);
+		contentPane.add(buttonExit);
 	}
 
 }

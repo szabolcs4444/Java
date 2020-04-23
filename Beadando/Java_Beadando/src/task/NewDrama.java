@@ -31,7 +31,7 @@ public class NewDrama extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public NewDrama(int dbOperator) {
+	public NewDrama(int databaseOperator) {
 		Checker checker = new Checker();
 		setBounds(100, 100, 494, 367);
 		getContentPane().setLayout(new BorderLayout());
@@ -40,30 +40,30 @@ public class NewDrama extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		JLabel lblNewIdentifier = new JLabel("Identifier: ");
-		lblNewIdentifier.setFont(new Font("Calibri", Font.BOLD, 14));
-		lblNewIdentifier.setBounds(24, 21, 78, 14);
-		contentPanel.add(lblNewIdentifier);
+		JLabel labelNewIdentifier = new JLabel("Identifier: ");
+		labelNewIdentifier.setFont(new Font("Calibri", Font.BOLD, 14));
+		labelNewIdentifier.setBounds(24, 21, 78, 14);
+		contentPanel.add(labelNewIdentifier);
 
-		JLabel lblTitle = new JLabel("Title: ");
-		lblTitle.setFont(new Font("Calibri", Font.BOLD, 14));
-		lblTitle.setBounds(24, 62, 78, 14);
-		contentPanel.add(lblTitle);
+		JLabel labelTitle = new JLabel("Title: ");
+		labelTitle.setFont(new Font("Calibri", Font.BOLD, 14));
+		labelTitle.setBounds(24, 62, 78, 14);
+		contentPanel.add(labelTitle);
 
-		JLabel lblDirector = new JLabel("Director: ");
-		lblDirector.setFont(new Font("Calibri", Font.BOLD, 14));
-		lblDirector.setBounds(24, 103, 78, 14);
-		contentPanel.add(lblDirector);
+		JLabel labelDirector = new JLabel("Director: ");
+		labelDirector.setFont(new Font("Calibri", Font.BOLD, 14));
+		labelDirector.setBounds(24, 103, 78, 14);
+		contentPanel.add(labelDirector);
 
-		JLabel lblPresentation = new JLabel("Performance date: ");
-		lblPresentation.setFont(new Font("Calibri", Font.BOLD, 14));
-		lblPresentation.setBounds(24, 147, 119, 14);
-		contentPanel.add(lblPresentation);
+		JLabel labelPresentation = new JLabel("Performance date: ");
+		labelPresentation.setFont(new Font("Calibri", Font.BOLD, 14));
+		labelPresentation.setBounds(24, 147, 119, 14);
+		contentPanel.add(labelPresentation);
 
-		JLabel lblTicketPrice = new JLabel("Ticket price: ");
-		lblTicketPrice.setFont(new Font("Calibri", Font.BOLD, 14));
-		lblTicketPrice.setBounds(24, 189, 78, 14);
-		contentPanel.add(lblTicketPrice);
+		JLabel labelTicketPrice = new JLabel("Ticket price: ");
+		labelTicketPrice.setFont(new Font("Calibri", Font.BOLD, 14));
+		labelTicketPrice.setBounds(24, 189, 78, 14);
+		contentPanel.add(labelTicketPrice);
 
 		textIdentifier = new JTextField();
 		textIdentifier.setForeground(Color.BLACK);
@@ -92,21 +92,21 @@ public class NewDrama extends JDialog {
 		contentPanel.add(textTicketPrice);
 		textTicketPrice.setColumns(10);
 
-		JLabel lblDateFormat = new JLabel("Date - yyyy.MM.dd");
-		lblDateFormat.setFont(new Font("Sitka Heading", Font.PLAIN, 13));
-		lblDateFormat.setBounds(305, 143, 135, 23);
-		contentPanel.add(lblDateFormat);
+		JLabel labelDateFormat = new JLabel("Date - yyyy.MM.dd");
+		labelDateFormat.setFont(new Font("Sitka Heading", Font.PLAIN, 13));
+		labelDateFormat.setBounds(305, 143, 135, 23);
+		contentPanel.add(labelDateFormat);
 
-		JButton btnAdd = new JButton("Add");
-		btnAdd.addActionListener(new ActionListener() {
+		JButton buttonAdd = new JButton("Add");
+		buttonAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (checker.goodInt(textIdentifier, "Identifier")
 						&& checker.goodIdentifier(textIdentifier, "Azonositó")) {
-					if (checker.filled(textTitle, "Title")) {
-						if (checker.filled(textDirector, "Director")) {
+					if (checker.textFilled(textTitle, "Title")) {
+						if (checker.textFilled(textDirector, "Director")) {
 							if (checker.goodDate(textPerformanceDate, "Performance date")) {
 								if (checker.goodInt(textTicketPrice, "ticket Price")) {
-									if (dbOperator == 0) {
+									if (databaseOperator == 0) {
 										FileManager.insert(ProgramDrama.textLoad.getText().toString(),
 												textIdentifier.getText(), textTitle.getText(), textDirector.getText(),
 												textPerformanceDate.getText(), textTicketPrice.getText());
@@ -124,12 +124,12 @@ public class NewDrama extends JDialog {
 				}
 			}
 		});
-		btnAdd.setBackground(new Color(0, 128, 0));
-		btnAdd.setBounds(123, 231, 89, 23);
-		contentPanel.add(btnAdd);
+		buttonAdd.setBackground(new Color(0, 128, 0));
+		buttonAdd.setBounds(123, 231, 89, 23);
+		contentPanel.add(buttonAdd);
 
-		JButton btnTisztt = new JButton("Clear");
-		btnTisztt.addActionListener(new ActionListener() {
+		JButton buttonClear = new JButton("Clear");
+		buttonClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				textIdentifier.setText("");
 				textTitle.setText("");
@@ -138,19 +138,19 @@ public class NewDrama extends JDialog {
 				textTicketPrice.setText("");
 			}
 		});
-		btnTisztt.setBackground(new Color(0, 128, 0));
-		btnTisztt.setBounds(275, 231, 89, 23);
-		contentPanel.add(btnTisztt);
+		buttonClear.setBackground(new Color(0, 128, 0));
+		buttonClear.setBounds(275, 231, 89, 23);
+		contentPanel.add(buttonClear);
 
-		JButton btnExit = new JButton("Exit");
-		btnExit.addActionListener(new ActionListener() {
+		JButton buttonExit = new JButton("Exit");
+		buttonExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
 		});
-		btnExit.setBackground(Color.RED);
-		btnExit.setBounds(383, 298, 89, 23);
-		contentPanel.add(btnExit);
+		buttonExit.setBackground(Color.RED);
+		buttonExit.setBounds(383, 298, 89, 23);
+		contentPanel.add(buttonExit);
 	}
 
 }

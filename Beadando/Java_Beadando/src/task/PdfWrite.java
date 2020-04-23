@@ -19,13 +19,13 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 public class PdfWrite {
-	public static void pdfWrite(String file, DramaTM drama) {
+	public static void write(String file, DramaTableDesign dramaTableModel) {
 		try {
 			Document document = new Document();
 			PdfWriter.getInstance(document, new FileOutputStream(file + ".pdf"));
 			document.open();
 
-			addContent(document, drama);
+			addContent(document, dramaTableModel);
 			document.close();
 			JOptionPane.showMessageDialog(null, "pdf successful created", "Program message", 1);
 		} catch (Exception e) {
@@ -35,7 +35,7 @@ public class PdfWrite {
 		}
 	}
 
-	private static void createTable(Section section, DramaTM drm) throws BadElementException {
+	private static void createTable(Section section, DramaTableDesign dramaTableModel) throws BadElementException {
 		PdfPTable table = new PdfPTable(5);
 		PdfPCell cell = new PdfPCell(new Phrase("Identifier"));
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -58,21 +58,21 @@ public class PdfWrite {
 		table.addCell(cell);
 
 		table.setHeaderRows(1);
-		int getRowCount = drm.getRowCount();
-		int getColumnCount = drm.getColumnCount();
+		int getRowCount = dramaTableModel.getRowCount();
+		int getColumnCount = dramaTableModel.getColumnCount();
 		for (int i = 0; i < getRowCount; i++) {
 			for (int j = 1; j < getColumnCount; j++) {
-				table.addCell(drm.getValueAt(i, j).toString());
+				table.addCell(dramaTableModel.getValueAt(i, j).toString());
 			}
 		}
 		section.add(table);
 	}
 
-	private static void addContent(Document document, DramaTM drama) throws DocumentException {
+	private static void addContent(Document document, DramaTableDesign dramaTableModel) throws DocumentException {
 		Chapter chapter = new Chapter(1);
 		Paragraph paragraph = new Paragraph("spreadsheet:");
 		Section dramaSection = chapter.addSection(paragraph);
-		createTable(dramaSection, drama);
+		createTable(dramaSection, dramaTableModel);
 		document.add(chapter);
 	}
 

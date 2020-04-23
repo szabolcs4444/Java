@@ -11,65 +11,58 @@ public class Checker {
 
 	private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
 
-	public boolean filled(JTextField a, String an) {
-		String string = a.getText();
+	public boolean textFilled(JTextField textField, String fieldName) {
+		String string = textField.getText();
 		if (string.length() > 0) {
 			return true;
 		} else {
-			JOptionPane.showMessageDialog(null, "Error: the " + an + " field is empty", "Program message", 0);
+			JOptionPane.showMessageDialog(null, "Error: the " + fieldName + " field is empty", "Program message", 0);
 			return false;
 		}
 	}
 
-	public boolean goodInt(JTextField a, String an) {
-		String string = a.getText();
-		boolean check = filled(a, an);
-		if (check)
+	public boolean goodInt(JTextField textField, String fieldName) {
+
+		if (textFilled(textField, fieldName)) {
 			try {
-				Integer.parseInt(string);
+				Integer.parseInt(textField.getText());
+				return true;
 			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(null, "Error: the " + an + " field has incorrect number!",
+				JOptionPane.showMessageDialog(null, "Error: the " + fieldName + " field has incorrect number!",
 						"Program message", 0);
-				check = false;
+				return false;
+
 			}
-		return check;
+		}
+		return true;
+
 	}
 
-	public boolean dateFormatChecker(String SDate) {
+	public boolean isValidDate(String dateString) {
 		try {
-			Date date = simpleDateFormat.parse(SDate);
+			Date date = simpleDateFormat.parse(dateString);
 			return true;
 		} catch (ParseException ef) {
+			JOptionPane.showMessageDialog(null, "Performance date field as the wrong date format. " + ef.getMessage(),
+					"Program message", 0);
 			return false;
 		}
 	}
 
-	public boolean goodDate(JTextField a, String an) {
-		String string = a.getText();
-		boolean check = filled(a, an);
-		if (check && dateFormatChecker(string)) {
-			return true;
-		} else {
+	public boolean goodDate(JTextField textField, String fieldName) {
 
-			JOptionPane.showMessageDialog(null, "The" + an + " field has the wrong date format!", "Program message", 0);
-			return false;
-		}
+		return (textFilled(textField, fieldName) && isValidDate(textField.getText()));
+
 	}
 
-	public boolean filled(JTextField a) {
-		String string = a.getText();
-		if (string.length() > 0) {
-			return true;
-
-		} else {
-			return false;
-		}
+	public boolean filled(JTextField textField) {
+		return textField.getText().length() > 0;
 	}
 
-	public int stringToInt(String s) {
+	public int stringToInt(String string) {
 		int numberFormat = -1;
 		try {
-			numberFormat = Integer.valueOf(s);
+			numberFormat = Integer.valueOf(string);
 		} catch (NumberFormatException nfe) {
 			JOptionPane.showMessageDialog(null, "stringToInt: " + nfe.getMessage(), "Program message", 0);
 
@@ -77,24 +70,18 @@ public class Checker {
 		return numberFormat;
 	}
 
-	public boolean goodIdentifier(JTextField a, String an) {
-		String string = a.getText();
-		boolean b = filled(a, an);
-		if (b && checkNumber(stringToInt(string))) {
+	public boolean goodIdentifier(JTextField textField, String fieldName) {
 
-			return true;
+		return textFilled(textField, fieldName) && checkNumber(stringToInt(textField.getText()));
 
-		} else {
-			JOptionPane.showMessageDialog(null, "Error: " + an + " give  five digit number please!", "Program message",
-					0);
-			return false;
-		}
 	}
 
 	public boolean checkNumber(int number) {
-		if (number > 0 && number <= 99999)
+		if (number > 0 && number < 100000)
 			return true;
-		else
+		else {
+			JOptionPane.showMessageDialog(null, "Error: enter a number between 1 and 100000! ", "Program message", 0);
 			return false;
+		}
 	}
 }

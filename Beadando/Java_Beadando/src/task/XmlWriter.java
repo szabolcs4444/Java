@@ -18,7 +18,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class XmlWriter {
-	public static void xmlWriter(String xml, DramaTM drama) {
+	public static void xmlWriter(String xml, DramaTableDesign dramaTableModel) {
 		Document dom;
 
 		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -30,15 +30,15 @@ public class XmlWriter {
 
 			Element rootElement = dom.createElement("problems");
 			dom.appendChild(rootElement);
-			int rowCount = drama.getRowCount();
-			int columnCount = drama.getColumnCount();
+			int rowCount = dramaTableModel.getRowCount();
+			int columnCount = dramaTableModel.getColumnCount();
 			for (int i = 0; i < rowCount; i++) {
 				for (int j = 1; j < columnCount - 1; j += 5) {
-					String identifier = drama.getValueAt(i, 1).toString();
-					String title = drama.getValueAt(i, 2).toString();
-					String director = drama.getValueAt(i, 3).toString();
-					String performanceDate = drama.getValueAt(i, 4).toString();
-					String ticketPrice = drama.getValueAt(i, 5).toString();
+					String identifier = dramaTableModel.getValueAt(i, 1).toString();
+					String title = dramaTableModel.getValueAt(i, 2).toString();
+					String director = dramaTableModel.getValueAt(i, 3).toString();
+					String performanceDate = dramaTableModel.getValueAt(i, 4).toString();
+					String ticketPrice = dramaTableModel.getValueAt(i, 5).toString();
 
 					Element identifierElement = dom.createElement("Identifier");
 					identifierElement.appendChild(dom.createTextNode(identifier));
