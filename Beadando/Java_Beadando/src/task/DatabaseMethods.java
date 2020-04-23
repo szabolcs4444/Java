@@ -7,7 +7,7 @@ import java.sql.*;
 
 import javax.swing.JOptionPane;
 
-public class DBMethods {
+public class DatabaseMethods {
 	private Statement statement = null;
 	private Connection connection = null;
 	private ResultSet resultSet = null;

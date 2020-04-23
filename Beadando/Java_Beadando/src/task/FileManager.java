@@ -18,16 +18,16 @@ public class FileManager {
 		try {
 
 			BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
-			String string = bufferedReader .readLine();
-			string = bufferedReader .readLine();
+			String string = bufferedReader.readLine();
+			string = bufferedReader.readLine();
 			while (string != null) {
 				String[] separator = string.split(";");
 				dramaReader.addRow(
 						new Object[] { false, separator[0], separator[1], separator[2], separator[3], separator[4] });
-				string = bufferedReader .readLine();
+				string = bufferedReader.readLine();
 
 			}
-			bufferedReader .close();
+			bufferedReader.close();
 			JOptionPane.showMessageDialog(null, "File opened and load successfully!", "Program message", 1);
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Scan failed! Error: " + e.getMessage(), " Program message", 0);

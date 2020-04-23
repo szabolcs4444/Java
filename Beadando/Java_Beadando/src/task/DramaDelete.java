@@ -21,7 +21,7 @@ public class DramaDelete extends JDialog {
 	private JTable table;
 	private DramaTableDesign drama;
 	private Checker checker = new Checker();
-	private DBMethods dbMethods = new DBMethods();
+	private DatabaseMethods dbMethods = new DatabaseMethods();
 	private static Map<Integer, Integer> map = new HashMap();
 	static {
 		map.put(0, 70);
@@ -67,18 +67,17 @@ public class DramaDelete extends JDialog {
 		JButton buttonDelete = new JButton("Delete");
 		buttonDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int piece = 0, signal = 0 ;
+				int piece = 0, signal = 0;
 				for (int x = 0; x < drama.getRowCount(); x++) {
-					if (Boolean.TRUE.equals(  drama.getValueAt(x, 0) )) {
+					if (Boolean.TRUE.equals(drama.getValueAt(x, 0))) {
 						piece++;
 						signal = x;
-					
-					
-					 }
-					 if(piece ==0){
-					 
+
+					}
+					if (piece == 0) {
+
 						JOptionPane.showMessageDialog(null, "No record selected! ", " Program message", 0);
-					
+
 					}
 
 					if (piece > 1) {
@@ -102,9 +101,7 @@ public class DramaDelete extends JDialog {
 						JOptionPane.showMessageDialog(null, "Record deleted! ", " Program message", 1);
 
 					}
-					}
-					
-				
+				}
 
 			}
 		});
@@ -113,11 +110,8 @@ public class DramaDelete extends JDialog {
 		buttonDelete.setBounds(83, 231, 169, 23);
 		getContentPane().add(buttonDelete);
 
-		
-		
-		
 		for (int i = 0; i < 6; i++) {
-			
+
 			table.getColumnModel().getColumn(i).setPreferredWidth(map.get(i));
 		}
 

@@ -59,8 +59,6 @@ public class DramaList extends JDialog {
 		table = new JTable(drama);
 		scrollPane.setViewportView(table);
 
-		
-		
 		for (int i = 0; i < 6; i++) {
 			table.getColumnModel().getColumn(i).setPreferredWidth(map.get(i));
 		}

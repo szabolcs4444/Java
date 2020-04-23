@@ -33,7 +33,7 @@ public class ProgramDrama extends JFrame {
 	private JTextField textPrint;
 	private int databaseOperator;
 	private String dbConnect;
-	private DBMethods dbMethods = new DBMethods();
+	private DatabaseMethods dbMethods = new DatabaseMethods();
 	private XmlWriter xmlWriter = new XmlWriter();
 
 	/**

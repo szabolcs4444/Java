@@ -22,7 +22,7 @@ public class NewDrama extends JDialog {
 	private JTextField textPerformanceDate;
 	private JTextField textDirector;
 	private JTextField textTicketPrice;
-	private DBMethods dbMethods = new DBMethods();
+	private DatabaseMethods dbMethods = new DatabaseMethods();
 
 	/**
 	 * Launch the application.

@@ -26,7 +26,7 @@ public class DramaModify extends JDialog {
 	private JTable table;
 	private DramaTableDesign drama;
 	private Checker checker = new Checker();
-	private DBMethods dbMethods = new DBMethods();
+	private DatabaseMethods dbMethods = new DatabaseMethods();
 	private JTextField textIdentifier;
 	private JTextField textTitle;
 	private JTextField textDirector;
@@ -79,7 +79,7 @@ public class DramaModify extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				int piece = 0, signal = 0;
 				for (int x = 0; x < drama.getRowCount(); x++) {
-					if (Boolean.TRUE.equals( drama.getValueAt(x, 0))) {
+					if (Boolean.TRUE.equals(drama.getValueAt(x, 0))) {
 						piece++;
 						signal = x;
 					}
@@ -205,9 +205,6 @@ public class DramaModify extends JDialog {
 		labelNewTicketPrice.setBounds(721, 244, 117, 14);
 		getContentPane().add(labelNewTicketPrice);
 
-		
-
-		
 		for (int i = 0; i < 6; i++) {
 			table.getColumnModel().getColumn(i).setPreferredWidth(map.get(i));
 		}
