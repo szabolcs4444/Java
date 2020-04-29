@@ -2,8 +2,8 @@ package task;
 
 import javax.swing.table.DefaultTableModel;
 
-public class DramaTableDesign extends DefaultTableModel {
-	public DramaTableDesign(Object fildNames[], int rows) {
+public class DramaTableModel extends DefaultTableModel {
+	public DramaTableModel(Object fildNames[], int rows) {
 		super(fildNames, rows);
 	}
 

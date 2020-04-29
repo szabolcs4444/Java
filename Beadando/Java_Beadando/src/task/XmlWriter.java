@@ -18,7 +18,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class XmlWriter {
-	public static void xmlWriter(String xml, DramaTableDesign dramaTableModel) {
+	public static void xmlWriter(String xml, DramaTableModel dramaTableModel) {
 		Document dom;
 
 		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();

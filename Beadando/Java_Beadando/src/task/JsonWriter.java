@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 import org.json.simple.JSONObject;
 
 public class JsonWriter {
-	public static void write(String fileName, DramaTableDesign dramaTableModel) {
+	public static void write(String fileName, DramaTableModel dramaTableModel) {
 		JSONObject jsonObject = new JSONObject();
 		try {
 			int getRowCount = dramaTableModel.getRowCount();

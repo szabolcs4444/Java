@@ -19,7 +19,7 @@ import java.awt.event.ActionEvent;
 
 public class DramaDelete extends JDialog {
 	private JTable table;
-	private DramaTableDesign drama;
+	private DramaTableModel drama;
 	private Checker checker = new Checker();
 	private DatabaseMethods dbMethods = new DatabaseMethods();
 	private static Map<Integer, Integer> map = new HashMap();
@@ -39,7 +39,7 @@ public class DramaDelete extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public DramaDelete(JFrame frame, DramaTableDesign dramaTableModel, int databaseOperator, File fileLoad) {
+	public DramaDelete(JFrame frame, DramaTableModel dramaTableModel, int databaseOperator, File fileLoad) {
 		super(frame, "Drama Delete", true);
 		getContentPane().setBackground(Color.LIGHT_GRAY);
 		drama = dramaTableModel;

@@ -12,9 +12,9 @@ import javax.swing.JOptionPane;
 
 public class FileManager {
 
-	public static DramaTableDesign readCsv(File fileName, DramaTableDesign dramaTableModel) {
+	public static DramaTableModel readCsv(File fileName, DramaTableModel dramaTableModel) {
 		Object objectDrama[] = { "Signal", "Identifier", "Title", "Director", "Performance date", "Ticket price" };
-		DramaTableDesign dramaReader = new DramaTableDesign(objectDrama, 0);
+		DramaTableModel dramaReader = new DramaTableModel(objectDrama, 0);
 		try {
 
 			BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
@@ -52,7 +52,7 @@ public class FileManager {
 		}
 	}
 
-	public static void modify(File fileName, DramaTableDesign dramaTableModel) {
+	public static void modify(File fileName, DramaTableModel dramaTableModel) {
 		try {
 			PrintStream out = new PrintStream(new FileOutputStream(fileName));
 			out.println("Identifier,Title,Director,Performance date,Ticket price");
@@ -74,7 +74,7 @@ public class FileManager {
 		}
 	}
 
-	public static void writeCsv(String fileName, DramaTableDesign dramaTableModel) {
+	public static void writeCsv(String fileName, DramaTableModel dramaTableModel) {
 		try {
 			PrintStream out = new PrintStream(new FileOutputStream(fileName + ".csv"));
 			out.println("Identifier;Title;Director;Performance date;Ticket price");

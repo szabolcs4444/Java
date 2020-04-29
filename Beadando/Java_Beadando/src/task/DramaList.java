@@ -17,7 +17,7 @@ import java.awt.event.ActionEvent;
 
 public class DramaList extends JDialog {
 	private JTable table;
-	private DramaTableDesign drama;
+	private DramaTableModel drama;
 	private static Map<Integer, Integer> map = new HashMap<Integer, Integer>();
 	static {
 		map.put(0, 70);
@@ -35,7 +35,7 @@ public class DramaList extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public DramaList(JFrame frame, DramaTableDesign dramaTableModel) {
+	public DramaList(JFrame frame, DramaTableModel dramaTableModel) {
 		super(frame, "Drama list", true);
 		drama = dramaTableModel;
 		setBounds(100, 100, 900, 300);

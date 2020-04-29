@@ -25,7 +25,7 @@ public class ProgramDrama extends JFrame {
 
 	private JPanel contentPane;
 
-	private DramaTableDesign dramaTableModel;
+	private DramaTableModel dramaTableModel;
 	private File fileLoad;
 	private String comboBoxString;
 	private String comboBoxStringSecond;
@@ -111,8 +111,8 @@ public class ProgramDrama extends JFrame {
 					dramaTableModel = dbMethods.readAllData(dbConnect);
 					dbMethods.disconnect();
 				}
-				DramaList dl = new DramaList(ProgramDrama.this, dramaTableModel);
-				dl.setVisible(true);
+				DramaList dramaList = new DramaList(ProgramDrama.this, dramaTableModel);
+				dramaList.setVisible(true);
 			}
 		});
 		buttonListData.setFont(new Font("Arial Black", Font.BOLD, 12));
@@ -153,11 +153,11 @@ public class ProgramDrama extends JFrame {
 		buttonNewData.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (databaseOperator == 0) {
-					NewDrama nd = new NewDrama(databaseOperator);
-					nd.setVisible(true);
+					NewDrama newDrama = new NewDrama(databaseOperator);
+					newDrama.setVisible(true);
 				} else if (databaseOperator == 1) {
-					NewDrama nd = new NewDrama(databaseOperator);
-					nd.setVisible(true);
+					NewDrama newDrama = new NewDrama(databaseOperator);
+					newDrama.setVisible(true);
 				}
 			}
 		});
@@ -199,8 +199,9 @@ public class ProgramDrama extends JFrame {
 					dbMethods.disconnect();
 				}
 
-				DramaDelete dd = new DramaDelete(ProgramDrama.this, dramaTableModel, databaseOperator, fileLoad);
-				dd.setVisible(true);
+				DramaDelete dramaDelete = new DramaDelete(ProgramDrama.this, dramaTableModel, databaseOperator,
+						fileLoad);
+				dramaDelete.setVisible(true);
 			}
 		});
 		buttonDeleteData.setBackground(new Color(0, 128, 0));
@@ -249,7 +250,7 @@ public class ProgramDrama extends JFrame {
 					if (textPrint.getText().length() == 0) {
 						JOptionPane.showMessageDialog(null, "No filename specified! ", " Program message", 0);
 					} else {
-						PdfWrite.write(textPrint.getText().toString(), dramaTableModel);
+						DramaPdfWriter.write(textPrint.getText().toString(), dramaTableModel);
 					}
 				}
 			}

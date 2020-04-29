@@ -47,9 +47,9 @@ public class DatabaseMethods {
 		}
 	}
 
-	public DramaTableDesign readAllData(String string) {
+	public DramaTableModel readAllData(String string) {
 		Object dramaObject[] = { "Signal", "Identifier", "Title", "Director", "Performance date", "Ticket price" };
-		DramaTableDesign drama = new DramaTableDesign(dramaObject, 0);
+		DramaTableModel drama = new DramaTableModel(dramaObject, 0);
 		String title = "", director = "", performanceDate = "";
 		int identifier = 0, ticketPrice = 0;
 		String sqlCommand = "select identifier,title,director,performanceDate,ticketPrice from drama";
@@ -112,7 +112,7 @@ public class DatabaseMethods {
 		}
 	}
 
-	public void write(String string, DramaTableDesign drama) {
+	public void write(String string, DramaTableModel drama) {
 		try {
 			Class.forName("org.sqlite.JDBC");
 

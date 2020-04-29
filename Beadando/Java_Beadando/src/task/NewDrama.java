@@ -8,6 +8,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import java.awt.Color;
@@ -100,29 +102,48 @@ public class NewDrama extends JDialog {
 		JButton buttonAdd = new JButton("Add");
 		buttonAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (checker.goodInt(textIdentifier, "Identifier")
-						&& checker.goodIdentifier(textIdentifier, "Azonositó")) {
-					if (checker.textFilled(textTitle, "Title")) {
-						if (checker.textFilled(textDirector, "Director")) {
-							if (checker.goodDate(textPerformanceDate, "Performance date")) {
-								if (checker.goodInt(textTicketPrice, "ticket Price")) {
-									if (databaseOperator == 0) {
-										FileManager.insert(ProgramDrama.textLoad.getText().toString(),
-												textIdentifier.getText(), textTitle.getText(), textDirector.getText(),
-												textPerformanceDate.getText(), textTicketPrice.getText());
-									} else {
-										dbMethods.connect();
-										dbMethods.insert(textIdentifier.getText(), textTitle.getText(),
-												textDirector.getText(), textPerformanceDate.getText(),
-												textTicketPrice.getText());
-										dbMethods.disconnect();
-									}
+
+				if (!(checker.goodInt(textIdentifier, "Identifier")
+						&& checker.goodIdentifier(textIdentifier, "Azonositó")))
+
+				{
+					JOptionPane.showMessageDialog(null,
+							"Error: the Identifier field is empty or wrong!\n Enter a number between 1 and 100000! ",
+							"Program message", 0);
+
+					if (!checker.textFilled(textTitle, "Title")) {
+						JOptionPane.showMessageDialog(null, "Error: the Title field is empty", "Program message", 0);
+
+						if (!checker.textFilled(textDirector, "Director")) {
+							JOptionPane.showMessageDialog(null, "Error: the Director field is empty", "Program message",
+									0);
+
+							if (!checker.goodDate(textPerformanceDate, "Performance date")) {
+								JOptionPane.showMessageDialog(null, "Performance date field as the wrong date format. ",
+										"Program message", 0);
+
+								if (!(checker.goodInt(textTicketPrice, "ticket Price")
+										&& checker.textFilled(textTicketPrice, "Ticket Price"))) {
+									JOptionPane.showMessageDialog(null,
+											"Error: the ticket field has incorrect number or empty!", "Program message",
+											0);
 								}
 							}
 						}
 					}
+				} else if (databaseOperator == 0) {
+					FileManager.insert(ProgramDrama.textLoad.getText().toString(), textIdentifier.getText(),
+							textTitle.getText(), textDirector.getText(), textPerformanceDate.getText(),
+							textTicketPrice.getText());
+				} else if (databaseOperator == 1) {
+					dbMethods.connect();
+					dbMethods.insert(textIdentifier.getText(), textTitle.getText(), textDirector.getText(),
+							textPerformanceDate.getText(), textTicketPrice.getText());
+					dbMethods.disconnect();
 				}
+
 			}
+
 		});
 		buttonAdd.setBackground(new Color(0, 128, 0));
 		buttonAdd.setBounds(123, 231, 89, 23);

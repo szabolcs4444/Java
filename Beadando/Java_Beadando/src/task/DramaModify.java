@@ -24,13 +24,13 @@ import java.awt.event.MouseEvent;
 
 public class DramaModify extends JDialog {
 	private JTable table;
-	private DramaTableDesign drama;
+	private DramaTableModel drama;
 	private Checker checker = new Checker();
 	private DatabaseMethods dbMethods = new DatabaseMethods();
 	private JTextField textIdentifier;
 	private JTextField textTitle;
 	private JTextField textDirector;
-	private JTextField textPresentation;
+	private JTextField textPerformanceDate;
 	private JTextField textTicketPrice;
 	private static Map<Integer, Integer> map = new HashMap<Integer, Integer>();
 	static {
@@ -49,7 +49,7 @@ public class DramaModify extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public DramaModify(JFrame frame, DramaTableDesign dramaTableModel, int databaseOperator, File fileLoad) {
+	public DramaModify(JFrame frame, DramaTableModel dramaTableModel, int databaseOperator, File fileLoad) {
 		super(frame, "Drama modification", true);
 		getContentPane().setBackground(Color.LIGHT_GRAY);
 		drama = dramaTableModel;
@@ -97,10 +97,13 @@ public class DramaModify extends JDialog {
 						if (dataFilledCount() > 0) {
 							boolean ok = true;
 							if (checker.filled(textIdentifier)) {
-								ok = checker.goodInt(textIdentifier, "Identifier");
+								ok = checker.goodIdentifier(textIdentifier, "Identifier");
 							}
 							if (ok && checker.filled(textTicketPrice)) {
 								ok = checker.goodInt(textTicketPrice, "Ticket Price");
+							}
+							if (ok && checker.filled(textPerformanceDate)) {
+								ok = checker.goodDate(textPerformanceDate, "Performance date");
 							}
 							if (ok) {
 								if (databaseOperator == 1) {
@@ -115,8 +118,8 @@ public class DramaModify extends JDialog {
 									if (checker.filled(textDirector)) {
 										dbMethods.update(mkod, "director", textDirector.getText());
 									}
-									if (checker.filled(textPresentation)) {
-										dbMethods.update(mkod, "performanceDate", textPresentation.getText());
+									if (checker.filled(textPerformanceDate)) {
+										dbMethods.update(mkod, "performanceDate", textPerformanceDate.getText());
 									}
 									if (checker.filled(textTicketPrice)) {
 										dbMethods.update(mkod, "ticketPrice", textTicketPrice.getText());
@@ -127,14 +130,15 @@ public class DramaModify extends JDialog {
 								if (checker.filled(textIdentifier)) {
 									drama.setValueAt(checker.stringToInt(textIdentifier.getText()), signal, 1);
 								}
+
 								if (checker.filled(textTitle)) {
 									drama.setValueAt(textTitle.getText(), signal, 2);
 								}
 								if (checker.filled(textDirector)) {
 									drama.setValueAt(textDirector.getText(), signal, 3);
 								}
-								if (checker.filled(textPresentation)) {
-									drama.setValueAt(textPresentation.getText(), signal, 4);
+								if (checker.filled(textPerformanceDate)) {
+									drama.setValueAt(textPerformanceDate.getText(), signal, 4);
 								}
 								if (checker.filled(textTicketPrice)) {
 									drama.setValueAt(checker.stringToInt(textTicketPrice.getText()), signal, 5);
@@ -146,7 +150,11 @@ public class DramaModify extends JDialog {
 
 								}
 							} else {
-								JOptionPane.showMessageDialog(null, "no field filled", "Program message", 1);
+
+								JOptionPane.showMessageDialog(null,
+										"Error: the Identifier field is empty or wrong!\nEnter a number between 1 and 100000!\n"
+												+ "Wrong date format or incorrent number in ticket price field! ",
+										"Program message", 0);
 
 							}
 						}
@@ -175,10 +183,10 @@ public class DramaModify extends JDialog {
 		getContentPane().add(textDirector);
 		textDirector.setColumns(10);
 
-		textPresentation = new JTextField();
-		textPresentation.setBounds(484, 269, 181, 20);
-		getContentPane().add(textPresentation);
-		textPresentation.setColumns(10);
+		textPerformanceDate = new JTextField();
+		textPerformanceDate.setBounds(484, 269, 181, 20);
+		getContentPane().add(textPerformanceDate);
+		textPerformanceDate.setColumns(10);
 
 		textTicketPrice = new JTextField();
 		textTicketPrice.setBounds(728, 269, 72, 20);
@@ -221,7 +229,7 @@ public class DramaModify extends JDialog {
 		if (checker.filled(textDirector)) {
 			dataPiece++;
 		}
-		if (checker.filled(textPresentation)) {
+		if (checker.filled(textPerformanceDate)) {
 			dataPiece++;
 		}
 		if (checker.filled(textTicketPrice)) {
@@ -234,7 +242,7 @@ public class DramaModify extends JDialog {
 		textIdentifier.setText("");
 		textTitle.setText("");
 		textDirector.setText("");
-		textPresentation.setText("");
+		textPerformanceDate.setText("");
 		textTicketPrice.setText("");
 		drama.setValueAt(false, i, 0);
 	}

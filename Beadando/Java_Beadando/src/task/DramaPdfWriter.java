@@ -18,8 +18,8 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
-public class PdfWrite {
-	public static void write(String file, DramaTableDesign dramaTableModel) {
+public class DramaPdfWriter {
+	public static void write(String file, DramaTableModel dramaTableModel) {
 		try {
 			Document document = new Document();
 			PdfWriter.getInstance(document, new FileOutputStream(file + ".pdf"));
@@ -35,7 +35,7 @@ public class PdfWrite {
 		}
 	}
 
-	private static void createTable(Section section, DramaTableDesign dramaTableModel) throws BadElementException {
+	private static void createTable(Section section, DramaTableModel dramaTableModel) throws BadElementException {
 		PdfPTable table = new PdfPTable(5);
 		PdfPCell cell = new PdfPCell(new Phrase("Identifier"));
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -68,7 +68,7 @@ public class PdfWrite {
 		section.add(table);
 	}
 
-	private static void addContent(Document document, DramaTableDesign dramaTableModel) throws DocumentException {
+	private static void addContent(Document document, DramaTableModel dramaTableModel) throws DocumentException {
 		Chapter chapter = new Chapter(1);
 		Paragraph paragraph = new Paragraph("spreadsheet:");
 		Section dramaSection = chapter.addSection(paragraph);
