@@ -9,8 +9,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import java.awt.Font;
+import java.awt.Point;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -61,7 +63,7 @@ public class Program extends JFrame {
 	public Program() {
 		setTitle("FileSystem Manager");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 813, 631);
+		setBounds(10, 10, 813, 650);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -270,11 +272,15 @@ public class Program extends JFrame {
 		JButton btnSelectFile = new JButton("Select File");
 		btnSelectFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ContentList ctl4 = new ContentList(Program.this,CurDir,4);
-				ctl4.setVisible(true);
-				selectedFile = ctl4.getOutFile();
-				sourceFile= new File(CurDir.getPath()+separator+selectedFile);
-				textSource.setText(sourceFile.getAbsolutePath());
+				JFileChooser jfc = new JFileChooser();
+				int returnValue = jfc.showOpenDialog(Program.this);
+				if(returnValue == JFileChooser.APPROVE_OPTION) {
+					sourceFile = jfc.getSelectedFile();
+					selectedFile= sourceFile.getName();
+					textSource.setText(sourceFile.getAbsolutePath());
+				}
+				
+				
 						
 			}
 		});
@@ -285,8 +291,15 @@ public class Program extends JFrame {
 		JButton btnSelectDestfolder = new JButton("Select Dest.Folder");
 		btnSelectDestfolder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				destFile = new File(CurDir.getPath()+separator+selectedFile);
-				textDestination.setText(destFile.getAbsolutePath());
+				JFileChooser jfc = new JFileChooser();
+				jfc.setDialogTitle("Choose a directory to save your file: ");
+				jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				int returnValue = jfc.showSaveDialog(Program.this);
+				if(returnValue == JFileChooser.APPROVE_OPTION) {
+					destFile = new File(jfc.getSelectedFile()+ separator + selectedFile);
+					textDestination.setText(destFile.getAbsolutePath());
+				}
+				
 			}
 		});
 		btnSelectDestfolder.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -310,6 +323,16 @@ public class Program extends JFrame {
 		btnCopyFile.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnCopyFile.setBounds(633, 440, 158, 23);
 		contentPane.add(btnCopyFile);
+		
+		JButton btnNewButton = new JButton("Help");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Help he = new Help(leftCornerX(), leftCornerY());
+				he.setVisible(true);
+			}
+		});
+		btnNewButton.setBounds(689, 77, 89, 23);
+		contentPane.add(btnNewButton);
 	}
 	public void SM(String msg,int type) {
 		JOptionPane.showMessageDialog(Program.this, msg,"FileSystem Manager message",type);
@@ -348,5 +371,18 @@ public class Program extends JFrame {
 		}catch(Exception e ) {
 			SM("copyFile: "+e.getMessage(),0);
 		}
+	}
+	
+	public int leftCornerX() {
+		Point bs = getLocation();
+		int bsx = (int)bs.getX();
+		return bsx;
+	
+	}
+	
+	public int leftCornerY() {
+		Point bs = getLocation();
+		int bsy = (int)bs.getY();
+		return bsy;
 	}
 }
