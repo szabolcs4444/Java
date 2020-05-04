@@ -48,7 +48,7 @@ public class DatabaseMethods {
 	}
 
 	public DramaTableModel readAllData(String string) {
-		Object dramaObject[] = { "Signal", "Identifier", "Title", "Director", "Performance date", "Ticket price" };
+		Object[] dramaObject = { "Signal", "Identifier", "Title", "Director", "Performance date", "Ticket price" };
 		DramaTableModel drama = new DramaTableModel(dramaObject, 0);
 		String title = "", director = "", performanceDate = "";
 		int identifier = 0, ticketPrice = 0;

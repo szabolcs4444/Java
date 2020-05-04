@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 public class FileManager {
 
 	public static DramaTableModel readCsv(File fileName, DramaTableModel dramaTableModel) {
-		Object objectDrama[] = { "Signal", "Identifier", "Title", "Director", "Performance date", "Ticket price" };
+		Object[] objectDrama = { "Signal", "Identifier", "Title", "Director", "Performance date", "Ticket price" };
 		DramaTableModel dramaReader = new DramaTableModel(objectDrama, 0);
 		try {
 

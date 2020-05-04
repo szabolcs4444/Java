@@ -119,7 +119,7 @@ public class ProgramDrama extends JFrame {
 		buttonListData.setBounds(10, 33, 155, 23);
 		contentPane.add(buttonListData);
 
-		String element[] = { "", ".csv file", "sqlite db" };
+		String [] element = { "", ".csv file", "sqlite db" };
 		JComboBox comboBox = new JComboBox();
 		for (String s : element)
 			comboBox.addItem(s);
@@ -259,7 +259,7 @@ public class ProgramDrama extends JFrame {
 		buttonSaveData.setFont(new Font("Arial Black", Font.BOLD, 12));
 		buttonSaveData.setBounds(609, 361, 169, 23);
 		contentPane.add(buttonSaveData);
-		String element2[] = { "", ".csv file", ".xml file", ".json file", "sqlite db", ".pdf file" };
+		String[] element2 = { "", ".csv file", ".xml file", ".json file", "sqlite db", ".pdf file" };
 		JComboBox comboBox_1 = new JComboBox();
 		for (String s : element2)
 			comboBox_1.addItem(s);

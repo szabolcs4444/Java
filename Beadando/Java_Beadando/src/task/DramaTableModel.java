@@ -3,7 +3,7 @@ package task;
 import javax.swing.table.DefaultTableModel;
 
 public class DramaTableModel extends DefaultTableModel {
-	public DramaTableModel(Object fildNames[], int rows) {
+	public DramaTableModel(Object[] fildNames, int rows) {
 		super(fildNames, rows);
 	}
 
